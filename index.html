@@ -296,7 +296,171 @@
             transform: scale(1.05);
             filter: brightness(1.2);
         }
-    </style>
+
+    /* --- 追加エフェクト 11-25 --- */
+
+        /* 11. ヘッダーテキストの「3D震動」：常に微妙に揺れて存在感を出す */
+        header h1 {
+            display: inline-block;
+            animation: tiltShake 3s infinite linear;
+        }
+        @keyframes tiltShake {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        /* 12. 背景に「流星」を走らせる（擬似要素） */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent 48%, #fff 50%, transparent 52%);
+            background-size: 300% 300%;
+            animation: meteor 8s linear infinite;
+            pointer-events: none;
+            opacity: 0.2;
+            z-index: 101;
+        }
+        @keyframes meteor {
+            0% { background-position: 200% -100%; }
+            20% { background-position: -100% 200%; }
+            100% { background-position: -100% 200%; }
+        }
+
+        /* 13. マウスホバーでセクション背景が「波打つ」 */
+        section {
+            overflow: hidden;
+            position: relative;
+        }
+        section:hover {
+            background: radial-gradient(circle at center, #ffffff 0%, #f0faff 100%);
+        }
+
+        /* 14. リンク(a)の下線が中央から広がるアニメ */
+        a {
+            position: relative;
+            text-decoration: none;
+        }
+        a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--main-color);
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+        a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* 15. Q&Aの矢印(▼)が「ジャンプ」する */
+        summary:hover::after {
+            animation: arrowJump 0.5s infinite alternate;
+        }
+        @keyframes arrowJump {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+
+        /* 16. プロフィールアイコンに「回転する光のリング」を追加 */
+        .profile-icon {
+            outline: 2px solid transparent;
+            outline-offset: 10px;
+            transition: outline-color 0.5s;
+        }
+        .profile-icon:hover {
+            outline: 2px dashed var(--main-color);
+            animation: float 4s ease-in-out infinite, rotateOutline 10s linear infinite;
+        }
+        @keyframes rotateOutline {
+            from { transform: scale(1.2) rotate(0deg); }
+            to { transform: scale(1.2) rotate(360deg); }
+        }
+
+        /* 17. リストのチェックマーク(✅)が「回転」して登場 */
+        li:hover::before {
+            animation: checkSpin 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes checkSpin {
+            from { transform: rotate(-180deg) scale(0); }
+            to { transform: rotate(0) scale(1); }
+        }
+
+        /* 18. ボタンの影が「呼吸」するように拡大縮小 */
+        .btn {
+            animation: pulse 4s infinite, shadowBreath 2s infinite alternate;
+        }
+        @keyframes shadowBreath {
+            from { box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3); }
+            to { box-shadow: 0 4px 30px rgba(255, 75, 43, 0.6); }
+        }
+
+        /* 19. SNSアイテムがホバーで「左右に揺れる」 */
+        .sns-item:hover {
+            animation: wiggle 0.3s infinite;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg) scale(1.2); }
+            50% { transform: rotate(3deg) scale(1.2); }
+        }
+
+        /* 20. 文字に「光の走査線」が通る */
+        h2::after {
+            content: "";
+            position: absolute;
+            left: 0; top: 0; width: 50px; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            animation: scan 3s infinite;
+        }
+        @keyframes scan {
+            0% { left: -100px; }
+            30% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* 21. footerにマウスを乗せると「文字間隔が広がる」 */
+        footer {
+            transition: letter-spacing 0.5s;
+        }
+        footer:hover {
+            letter-spacing: 5px;
+            color: var(--main-color);
+        }
+
+        /* 22. コラボ依頼ボックスが「虹色に呼吸」する */
+        .contact-info {
+            animation: borderBreath 4s infinite alternate;
+        }
+        @keyframes borderBreath {
+            from { border-color: #ffdde1; }
+            to { border-color: var(--main-color); transform: scale(1.01); }
+        }
+
+        /* 23. 非表示にしていた要素がスクロールで「スライドイン」（簡易版） */
+        section {
+            backface-visibility: hidden;
+        }
+
+        /* 24. 全体の背景ドットが「拡大縮小」する */
+        @keyframes dotPulse {
+            0% { background-size: 25px 25px; }
+            50% { background-size: 30px 30px; }
+            100% { background-size: 25px 25px; }
+        }
+        body {
+            animation: bgMove 10s linear infinite, dotPulse 5s ease-in-out infinite;
+        }
+
+        /* 25. クリックした瞬間の「縮小」エフェクトをすべてのクリック可能要素に */
+        a:active, button:active, .btn:active, summary:active {
+            transform: scale(0.9) !important;
+            transition: 0.1s;
+        }
     </style>
 </head>
 <body>
