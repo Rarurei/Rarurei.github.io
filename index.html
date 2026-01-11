@@ -9,13 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <style>
+   <style>
         :root {
             --main-color: #00AEEF;
             --bg-color: #E6F7FF;
             --card-bg: #ffffff;
             --text-color: #33393F;
             --discord-color: #5865F2;
+            --contact-pink: #ff416c; /* 追加：コラボ用ピンク */
         }
 
         /* 背景アニメーション */
@@ -39,9 +40,24 @@
 
         /* キラッと光るアニメーション */
         @keyframes shine {
-            0% { left: -100%; transition-property: left; }
-            20% { left: 100%; transition-property: left; }
-            100% { left: 100%; transition-property: left; }
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* 【追加】虹色に光るボーダーアニメ */
+        @keyframes rainbowBorder {
+            0% { border-color: #00AEEF; box-shadow: 0 0 10px rgba(0, 174, 239, 0.4); }
+            33% { border-color: #ff416c; box-shadow: 0 0 15px rgba(255, 65, 108, 0.4); }
+            66% { border-color: #5865F2; box-shadow: 0 0 10px rgba(88, 101, 242, 0.4); }
+            100% { border-color: #00AEEF; box-shadow: 0 0 10px rgba(0, 174, 239, 0.4); }
+        }
+
+        /* 【追加】ふわふわ浮遊アニメ */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         body { 
@@ -63,6 +79,7 @@
             padding: 80px 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             animation: fadeInUp 1s ease-out;
+            position: relative;
         }
 
         .profile-icon {
@@ -74,8 +91,9 @@
             background-color: white;
             margin-bottom: 15px;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: float 4s ease-in-out infinite; /* アイコンを浮かせる */
         }
-        .profile-icon:hover { transform: scale(1.1) rotate(10deg); }
+        .profile-icon:hover { transform: scale(1.2) rotate(360deg); }
 
         .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
         
@@ -86,9 +104,13 @@
             margin-bottom: 40px; 
             box-shadow: 0 10px 30px rgba(179, 229, 252, 0.4); 
             animation: fadeInUp 1s ease-out both;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border 0.3s ease;
+            border: 2px solid transparent;
         }
-        section:hover { transform: translateY(-5px); }
+        section:hover { 
+            transform: translateY(-10px); 
+            animation: rainbowBorder 3s linear infinite; /* ホバーで枠が虹色に光る */
+        }
 
         section:nth-child(1) { animation-delay: 0.2s; }
         section:nth-child(2) { animation-delay: 0.4s; }
@@ -114,7 +136,7 @@
             border: 1px solid #d0efff;
             transition: 0.3s;
         }
-        li:hover { transform: translateX(10px); background: #e0f5ff; }
+        li:hover { transform: translateX(15px) scale(1.05); background: #e0f5ff; }
         li::before { content: "✅"; margin-right: 10px; }
 
         /* 光るエフェクト付きボタン */
@@ -138,31 +160,31 @@
             left: -100%;
             width: 50%;
             height: 200%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.4);
             transform: rotate(30deg);
             animation: shine 3s infinite;
         }
-        .btn:hover { transform: scale(1.1); box-shadow: 0 8px 25px rgba(255, 75, 43, 0.5); }
+        .btn:hover { transform: scale(1.15) rotate(-2deg); box-shadow: 0 8px 25px rgba(255, 75, 43, 0.5); }
 
         .btn-discord {
             background: var(--discord-color);
             box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
-            animation: pulse 4s infinite 2s; /* YouTubeボタンと交互に動く */
+            animation: pulse 4s infinite 2s; 
         }
-        .btn-discord:hover { background: #4752c4; }
+        .btn-discord:hover { background: #4752c4; transform: scale(1.15) rotate(2deg); }
 
         .sns-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
         .sns-item { 
             background: #fff; padding: 12px 20px; 
             border-radius: 30px; text-decoration: none; color: #444; 
-            font-weight: bold; border: 2px solid #eee; transition: 0.3s;
+            font-weight: bold; border: 2px solid #eee; transition: 0.4s;
             display: flex; align-items: center; gap: 8px;
         }
         .sns-item i { transition: 0.5s ease; }
         .sns-item:hover { 
             background: var(--main-color); border-color: var(--main-color); 
-            color: white; transform: scale(1.1) translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 174, 239, 0.3);
+            color: white; transform: scale(1.2) translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 174, 239, 0.4);
         }
         .sns-item:hover i { transform: rotate(360deg); }
 
@@ -183,10 +205,11 @@
             overflow: hidden;
             transition: 0.3s;
         }
-        details:hover { transform: scale(1.02); }
+        details:hover { transform: scale(1.02); background: #fff; }
         details[open] {
             background: #fff;
             border-color: var(--main-color);
+            box-shadow: 0 5px 15px rgba(0, 174, 239, 0.1);
         }
         summary {
             padding: 15px;
@@ -215,23 +238,65 @@
             margin-top: 15px;
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
+            transition: 0.3s;
         }
+        .qa-item:hover { padding-left: 10px; color: var(--main-color); }
         .q-txt { font-weight: bold; color: var(--main-color); display: block; }
         .a-txt { color: #555; display: block; margin-left: 10px; }
 
-        /* コラボ依頼のデザイン */
+        /* --- 【大幅修正・強化】コラボ依頼のデザイン --- */
         .contact-info {
             margin-top: 20px;
-            padding: 20px;
-            background: #fff5f7;
+            padding: 25px;
+            background: linear-gradient(145deg, #fff5f7, #ffffff);
             border: 2px solid #ffdde1;
-            border-radius: 15px;
-            font-size: 0.9rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
             color: #d63384;
-            transition: 0.3s;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
-        .contact-info:hover { border-color: #ff416c; box-shadow: 0 5px 15px rgba(255, 65, 108, 0.2); }
 
+        /* 背景に動く光の玉を追加 */
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 65, 108, 0.1) 0%, transparent 70%);
+            animation: rotateLight 10s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotateLight {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .contact-info:hover { 
+            border-color: #ff416c; 
+            box-shadow: 0 15px 35px rgba(255, 65, 108, 0.3); 
+            transform: translateY(-10px) scale(1.02);
+            color: #b02a6a;
+        }
+
+        /* お問い合わせリンクをネオン風に光らせる */
+        .contact-info a {
+            display: inline-block;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .contact-info a:hover {
+            text-shadow: 0 0 8px rgba(255, 65, 108, 0.6);
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+    </style>
     </style>
 </head>
 <body>
@@ -290,6 +355,15 @@
                         <i class="fas fa-envelope"></i> Rarurei.CH@gmail.com
                     </a>
                 </div>
+                <div class="fanart-box" style="margin-top: 20px; padding: 20px; border: 2px dashed #ffb6c1; border-radius: 15px; background: #fffafb; text-align: center;">
+    <p style="margin: 0; font-weight: 800; color: #db7093; font-size: 1.1rem;">
+        <i class="fas fa-paint-brush"></i> ファンアート募集中！
+    </p>
+    <p style="margin: 10px 0 0; font-size: 0.95rem; color: #555;">
+        描いてくれたイラストは、X（旧Twitter）の<strong>DM</strong>または<br>
+        <strong>メンション（@Rarurei_YouTube）</strong>で教えてね！✨
+    </p>
+</div>
             </div>
         </section>
 
