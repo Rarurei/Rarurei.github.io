@@ -10,17 +10,17 @@
     <style>
         /* --- デザイン設定 (青・水色テーマ) --- */
         :root {
-            --main-color: #00AEEF;       /* 鮮やかなスカイブルー */
-            --accent-color: #007bb5;     /* 濃い青（ボタンなど） */
-            --bg-color: #E6F7FF;         /* 背景の薄い水色 */
-            --card-bg: #ffffff;          /* 白 */
-            --text-color: #33393F;       /* 濃いグレー */
+            --main-color: #00AEEF;
+            --accent-color: #007bb5;
+            --bg-color: #E6F7FF;
+            --card-bg: #ffffff;
+            --text-color: #33393F;
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'M PLUS Rounded 1c', sans-serif; /* 丸文字 */
+            font-family: 'M PLUS Rounded 1c', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
@@ -38,11 +38,6 @@
             font-size: 2.5rem;
             margin: 0;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
-        }
-        header p {
-            font-size: 1.1rem;
-            margin-top: 10px;
-            opacity: 0.9;
         }
 
         /* 登録者数表示エリア */
@@ -84,7 +79,6 @@
             color: var(--main-color);
             border-bottom: 3px dashed var(--main-color);
             padding-bottom: 10px;
-            font-size: 1.5rem;
         }
 
         /* 動画ギャラリー */
@@ -97,7 +91,7 @@
             background: #f0f8ff;
             border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.2s;
+            transition: 0.2s;
         }
         .video-card:hover {
             transform: translateY(-5px);
@@ -141,18 +135,14 @@
             font-weight: bold;
             transition: 0.3s;
             margin-top: 10px;
-            text-align: center;
-        }
-        .btn:hover {
-            background-color: var(--accent-color);
-            transform: scale(1.05);
         }
         .btn-discord {
-            background-color: #5865F2; /* Discord Color */
+            background-color: #5865F2;
             width: 100%;
             max-width: 300px;
             display: block;
             margin: 20px auto;
+            text-align: center;
         }
 
         /* SNSリンク */
@@ -168,29 +158,21 @@
             border-radius: 20px;
             text-decoration: none;
             color: #555;
-            font-size: 0.9rem;
-            transition: 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: 0.3s;
         }
         .sns-item:hover {
             background: var(--main-color);
             color: white;
         }
         
-        /* フッター */
         footer {
             text-align: center;
             padding: 20px;
             color: #888;
             font-size: 0.8rem;
-        }
-
-        /* レスポンシブ */
-        @media (max-width: 600px) {
-            header h1 { font-size: 1.8rem; }
-            section { padding: 20px; }
         }
     </style>
 </head>
@@ -211,8 +193,7 @@
             <p>
                 こんにちは！🐈の👻のらるれいです！<br>
                 色々しているゆっくり実況者で〜す。<br>
-                そこの君！チャンネル登録してほしい！<br>
-                視聴者の皆さんとワイワイ楽しめるチャンネルにしていきたいです(*^^*)
+                そこの君！チャンネル登録してほしい！
             </p>
             <div style="background:#E1F5FE; padding:15px; border-radius:10px; margin-top:15px;">
                 <p><strong>📅 投稿日：</strong> 毎週日曜 夜7時投稿！（週1投稿予定）</p>
@@ -229,7 +210,6 @@
         <section id="videos">
             <h2>📺 最新の動画</h2>
             <p style="font-size:0.9rem;">YouTubeから最新動画を自動で取得しています</p>
-            
             <div class="video-grid" id="video-container">
                 <p>読み込み中...</p>
             </div>
@@ -238,18 +218,13 @@
         <section id="recruitment">
             <h2>🎥 動画班について</h2>
             <p>動画班とは？<br>撮影を協力してくれるグループです。主にMinecraftを一緒にしたりします。</p>
-            
-            <div style="background:#f9f9f9; padding:20px; border-radius:15px; border:2px dashed #ccc;">
-                <h3 style="margin-top:0;">✅ 参加条件</h3>
-                <ul class="check-list">
-                    <li>Minecraft（統合版）ができる</li>
-                    <li>13歳以上であること</li>
-                    <li>MicrosoftアカウントにサインインしてMinecraftができる</li>
-                    <li>生声で通話に参加可能の方 (ネット公開ではない)</li>
-                    <li>やる気がある</li>
-                </ul>
-            </div>
-
+            <ul class="check-list">
+                <li>Minecraft（統合版）ができる</li>
+                <li>13歳以上であること</li>
+                <li>MicrosoftアカウントにサインインしてMinecraftができる</li>
+                <li>生声で通話に参加可能の方 (ネット公開ではない)</li>
+                <li>やる気がある</li>
+            </ul>
             <a href="https://discord.gg/vupWgSe5rg" class="btn btn-discord">
                 <i class="fab fa-discord"></i> Discordに参加する
             </a>
@@ -268,7 +243,7 @@
                 <a href="https://linevoom.line.me/user/_dWZiDZmXaPJG2qHnX46zacGP_bOcPBZT7i5tXqU" class="sns-item"><i class="fab fa-line"></i> LINE VOOM</a>
                 <a href="https://u.pokekara.com/user/3828724496" class="sns-item"><i class="fas fa-music"></i> Pokekara</a>
                 <a href="https://www.nicovideo.jp/user/142267657" class="sns-item"><i class="fas fa-tv"></i> ニコニコ動画</a>
-                <a href="https://www.instagram.com/rarurei_ch" class="sns-item"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://www.instagram.com/rarurei_yt" class="sns-item"><i class="fab fa-instagram"></i> Instagram</a>
             </div>
         </section>
     </div>
@@ -278,13 +253,12 @@
     </footer>
 
     <script>
-        // 【重要】ここにGoogle Cloudで取得したAPIキーを入れてください
+        // 設定
         const API_KEY = 'AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM'; 
         const CHANNEL_ID = 'UCnceIu-LX9qqedi_GcfQ5Tw'; // RarureiのチャンネルID
 
         // 1. チャンネル登録者数を取得
         async function fetchSubCount() {
-            if(API_KEY === 'AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM') return; // APIキーがない場合は実行しない
             try {
                 const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
                 const response = await fetch(url);
@@ -301,11 +275,6 @@
         // 2. 最新動画を取得
         async function fetchLatestVideos() {
             const container = document.getElementById('video-container');
-            if(API_KEY === 'AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM') {
-                container.innerHTML = '<p>※自動更新機能を使うにはAPIキーの設定が必要です。<br><a href="https://www.youtube.com/@Rarurei_CH" target="_blank">YouTubeで動画を見る</a></p>';
-                return;
-            }
-
             try {
                 // 最新の動画を検索
                 const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=3&type=video`;
@@ -319,7 +288,6 @@
                         const title = item.snippet.title;
                         const thumb = item.snippet.thumbnails.medium.url;
                         
-                        // カードHTMLを作成
                         const html = `
                             <div class="video-card">
                                 <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
