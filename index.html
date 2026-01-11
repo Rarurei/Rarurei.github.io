@@ -8,7 +8,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        /* --- デザイン設定 (青・水色テーマ) --- */
         :root {
             --main-color: #00AEEF;
             --accent-color: #007bb5;
@@ -16,164 +15,25 @@
             --card-bg: #ffffff;
             --text-color: #33393F;
         }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'M PLUS Rounded 1c', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        /* ヘッダー */
-        header {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-            color: white;
-            text-align: center;
-            padding: 60px 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        header h1 {
-            font-size: 2.5rem;
-            margin: 0;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
-        }
-
-        /* 登録者数表示エリア */
-        .stats-bar {
-            background: white;
-            text-align: center;
-            padding: 15px;
-            margin: -30px auto 30px;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 10;
-        }
-        .stats-bar span {
-            font-weight: bold;
-            color: #ff0000;
-            font-size: 1.2rem;
-        }
-
-        /* コンテンツエリア */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        section {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(179, 229, 252, 0.4);
-            border: 2px solid #fff;
-        }
-
-        h2 {
-            color: var(--main-color);
-            border-bottom: 3px dashed var(--main-color);
-            padding-bottom: 10px;
-        }
-
-        /* 動画ギャラリー */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .video-card {
-            background: #f0f8ff;
-            border-radius: 10px;
-            overflow: hidden;
-            transition: 0.2s;
-        }
-        .video-card:hover {
-            transform: translateY(-5px);
-        }
-        .video-card img {
-            width: 100%;
-            height: auto;
-        }
-        .video-card p {
-            padding: 10px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        /* 募集要項リスト */
-        .check-list {
-            list-style: none;
-            padding: 0;
-        }
-        .check-list li {
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 10px;
-        }
-        .check-list li::before {
-            content: '✅';
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-
-        /* ボタン */
-        .btn {
-            display: inline-block;
-            background-color: var(--main-color);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-        .btn-discord {
-            background-color: #5865F2;
-            width: 100%;
-            max-width: 300px;
-            display: block;
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        /* SNSリンク */
-        .sns-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        .sns-item {
-            background: #f1f1f1;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            color: #555;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-        }
-        .sns-item:hover {
-            background: var(--main-color);
-            color: white;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #888;
-            font-size: 0.8rem;
-        }
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        header { background: linear-gradient(135deg, #00c6ff, #0072ff); color: white; text-align: center; padding: 60px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        header h1 { font-size: 2.5rem; margin: 0; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); }
+        .stats-bar { background: white; text-align: center; padding: 15px; margin: -30px auto 30px; width: 90%; max-width: 600px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; z-index: 10; }
+        .stats-bar span { font-weight: bold; color: #ff0000; font-size: 1.2rem; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        section { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(179, 229, 252, 0.4); border: 2px solid #fff; }
+        h2 { color: var(--main-color); border-bottom: 3px dashed var(--main-color); padding-bottom: 10px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .video-card { background: #f0f8ff; border-radius: 10px; overflow: hidden; transition: 0.2s; }
+        .video-card:hover { transform: translateY(-5px); }
+        .video-card img { width: 100%; height: auto; }
+        .video-card p { padding: 10px; font-size: 0.9rem; font-weight: bold; margin: 0; }
+        .btn { display: inline-block; background-color: var(--main-color); color: white; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: 0.3s; margin-top: 10px; }
+        .btn-discord { background-color: #5865F2; width: 100%; max-width: 300px; display: block; margin: 20px auto; text-align: center; }
+        .sns-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .sns-item { background: #f1f1f1; padding: 10px 20px; border-radius: 20px; text-decoration: none; color: #555; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .sns-item:hover { background: var(--main-color); color: white; }
+        footer { text-align: center; padding: 20px; color: #888; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -190,48 +50,19 @@
     <div class="container">
         <section id="about">
             <h2>🐈 自己紹介 👻</h2>
-            <p>
-                こんにちは！🐈の👻のらるれいです！<br>
-                色々しているゆっくり実況者で〜す。<br>
-                そこの君！チャンネル登録してほしい！
-            </p>
-            <div style="background:#E1F5FE; padding:15px; border-radius:10px; margin-top:15px;">
+            <p>こんにちは！🐈の👻のらるれいです！<br>色々しているゆっくり実況者で〜す。<br>そこの君！チャンネル登録してほしい！</p>
+            <div style="background:#E1F5FE; padding:15px; border-radius:10px;">
                 <p><strong>📅 投稿日：</strong> 毎週日曜 夜7時投稿！（週1投稿予定）</p>
-                <p style="font-size:0.9rem; color:#666;">※テスト期間中はお休みします。</p>
                 <p><strong>🎮 スタイル：</strong> ゆっくり実況をメインに、マイクラなど様々な企画に挑戦中！</p>
             </div>
             <div style="text-align: center; margin-top:20px;">
-                <a href="https://www.youtube.com/@Rarurei_CH" class="btn" style="background:#ff0000;">
-                    <i class="fab fa-youtube"></i> チャンネル登録する
-                </a>
+                <a href="https://www.youtube.com/@Rarurei_CH" class="btn" style="background:#ff0000;"><i class="fab fa-youtube"></i> チャンネル登録する</a>
             </div>
         </section>
 
         <section id="videos">
             <h2>📺 最新の動画</h2>
-            <p style="font-size:0.9rem;">YouTubeから最新動画を自動で取得しています</p>
-            <div class="video-grid" id="video-container">
-                <p>読み込み中...</p>
-            </div>
-        </section>
-
-        <section id="recruitment">
-            <h2>🎥 動画班について</h2>
-            <p>動画班とは？<br>撮影を協力してくれるグループです。主にMinecraftを一緒にしたりします。</p>
-            <ul class="check-list">
-                <li>Minecraft（統合版）ができる</li>
-                <li>13歳以上であること</li>
-                <li>MicrosoftアカウントにサインインしてMinecraftができる</li>
-                <li>生声で通話に参加可能の方 (ネット公開ではない)</li>
-                <li>やる気がある</li>
-            </ul>
-            <a href="https://discord.gg/vupWgSe5rg" class="btn btn-discord">
-                <i class="fab fa-discord"></i> Discordに参加する
-            </a>
-            <p style="text-align:center; font-size:0.8rem; color:#888;">
-                ※ボランティア感覚でお願いします。<br>
-                入る際は名前をゲーム名またはSNSアカウント名にしてください。
-            </p>
+            <div class="video-grid" id="video-container"><p id="video-status">読み込み中...</p></div>
         </section>
 
         <section id="links">
@@ -243,73 +74,61 @@
                 <a href="https://linevoom.line.me/user/_dWZiDZmXaPJG2qHnX46zacGP_bOcPBZT7i5tXqU" class="sns-item"><i class="fab fa-line"></i> LINE VOOM</a>
                 <a href="https://u.pokekara.com/user/3828724496" class="sns-item"><i class="fas fa-music"></i> Pokekara</a>
                 <a href="https://www.nicovideo.jp/user/142267657" class="sns-item"><i class="fas fa-tv"></i> ニコニコ動画</a>
-                <a href="https://www.instagram.com/rarurei_yt" class="sns-item"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://www.instagram.com/rarurei_yt/" target="_blank" class="sns-item"><i class="fab fa-instagram"></i> Instagram</a>
             </div>
         </section>
     </div>
 
-    <footer>
-        <p>&copy; Rarurei (らるれい) - All rights reserved.</p>
-    </footer>
+    <footer><p>&copy; Rarurei (らるれい) - All rights reserved.</p></footer>
 
     <script>
-        // 設定
         const API_KEY = 'AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM'; 
-        const CHANNEL_ID = 'UCnceIu-LX9qqedi_GcfQ5Tw'; // RarureiのチャンネルID
+        const CHANNEL_ID = 'UCnceIu-LX9qqedi_GcfQ5Tw';
 
-        // 1. チャンネル登録者数を取得
         async function fetchSubCount() {
             try {
                 const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
                 const response = await fetch(url);
                 const data = await response.json();
+                if (data.error) {
+                    console.error('APIエラー（登録者数）:', data.error.message);
+                    return;
+                }
                 if (data.items) {
                     const count = data.items[0].statistics.subscriberCount;
                     document.getElementById('subscriber-count').innerText = Number(count).toLocaleString();
                 }
-            } catch (error) {
-                console.error('登録者数の取得に失敗:', error);
-            }
+            } catch (error) { console.error(error); }
         }
 
-        // 2. 最新動画を取得
         async function fetchLatestVideos() {
             const container = document.getElementById('video-container');
             try {
-                // 最新の動画を検索
                 const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=3&type=video`;
                 const response = await fetch(url);
                 const data = await response.json();
+                
+                if (data.error) {
+                    document.getElementById('video-status').innerText = 'APIエラー: ' + data.error.message;
+                    return;
+                }
 
                 if (data.items) {
-                    container.innerHTML = ''; // 読み込み中メッセージを消す
+                    container.innerHTML = '';
                     data.items.forEach(item => {
-                        const videoId = item.id.videoId;
-                        const title = item.snippet.title;
-                        const thumb = item.snippet.thumbnails.medium.url;
-                        
-                        const html = `
+                        container.innerHTML += `
                             <div class="video-card">
-                                <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
-                                    <img src="${thumb}" alt="${title}">
+                                <a href="https://www.youtube.com/watch?v=${item.id.videoId}" target="_blank">
+                                    <img src="${item.snippet.thumbnails.medium.url}">
                                 </a>
-                                <p><a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" style="text-decoration:none; color:inherit;">${title}</a></p>
-                            </div>
-                        `;
-                        container.innerHTML += html;
+                                <p>${item.snippet.title}</p>
+                            </div>`;
                     });
                 }
-            } catch (error) {
-                container.innerHTML = '<p>動画の読み込みに失敗しました。</p>';
-                console.error(error);
-            }
+            } catch (error) { document.getElementById('video-status').innerText = '通信エラーが発生しました。'; }
         }
 
-        // ページ読み込み時に実行
-        window.onload = function() {
-            fetchSubCount();
-            fetchLatestVideos();
-        };
+        window.onload = function() { fetchSubCount(); fetchLatestVideos(); };
     </script>
 </body>
 </html>
