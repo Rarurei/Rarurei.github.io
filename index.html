@@ -18,11 +18,6 @@
             --text-color: #33393F;
         }
 
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         body { 
             margin: 0; padding: 0; 
             font-family: 'M PLUS Rounded 1c', sans-serif; 
@@ -31,39 +26,57 @@
             background-size: 25px 25px;
             color: var(--text-color); 
             line-height: 1.6; 
-            animation: fadeInPage 1.2s ease-out;
         }
 
-        /* ヘッダー修正箇所：ぼかし（暗さ）を強め、位置を下寄りに */
+        /* ヘッダー：画像が切れないように調整 */
         header { 
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('header-bg.jpg'); 
-            background-size: cover;
-            background-position: center 80%; /* 以前より下寄りに調整 */
-            color: white; 
-            text-align: center; 
-            padding: 80px 20px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
             position: relative;
+            text-align: center;
+            background-color: #0072ff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ヘッダー背景画像：拡大率に関わらず「らるれい」が見えるように */
+        .header-bg-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: brightness(0.6); /* 文字を読みやすくするため少し暗く */
+        }
+
+        /* ヘッダーの中央コンテンツ */
+        .header-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            z-index: 2;
         }
 
         .profile-icon {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             border: 5px solid white;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            margin-bottom: 15px;
             object-fit: cover;
             background-color: white;
-            transition: transform 0.3s ease;
         }
-        .profile-icon:hover { transform: rotate(5deg) scale(1.1); }
 
-        header h1 { font-size: 2.8rem; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.4); }
+        header h1 { 
+            color: white;
+            font-size: 2.5rem; 
+            margin: 10px 0 0; 
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5); 
+        }
 
         .stats-bar { 
             background: white; text-align: center; padding: 18px; 
-            margin: -35px auto 35px; width: 85%; max-width: 550px; 
+            margin: -25px auto 35px; width: 85%; max-width: 550px; 
             border-radius: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
             position: relative; z-index: 10; border: 2px solid var(--main-color);
         }
@@ -74,30 +87,25 @@
         section { 
             background: var(--card-bg); border-radius: 25px; padding: 35px; 
             margin-bottom: 40px; box-shadow: 0 10px 30px rgba(179, 229, 252, 0.5); 
-            border: 1px solid rgba(255,255,255,0.8); 
-            transition: transform 0.3s ease;
         }
-        section:hover { transform: translateY(-5px); }
 
         h2 { color: var(--main-color); border-left: 8px solid var(--main-color); padding-left: 15px; margin-bottom: 25px; }
 
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .video-card { background: #fff; border-radius: 15px; overflow: hidden; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid #eee; }
-        .video-card:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .video-card { background: #fff; border-radius: 15px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; }
+        .video-card:hover { transform: scale(1.03); }
         .video-card img { width: 100%; height: auto; }
         .video-card p { padding: 15px; font-size: 0.95rem; font-weight: bold; margin: 0; }
 
         .btn { 
             display: inline-block; background: linear-gradient(135deg, #ff4b2b, #ff416c); 
-            color: white; padding: 18px 40px; border-radius: 50px; 
-            text-decoration: none; font-weight: 800; box-shadow: 0 5px 15px rgba(255, 75, 43, 0.3); 
-            transition: 0.3s; margin-top: 10px; 
+            color: white; padding: 15px 35px; border-radius: 50px; 
+            text-decoration: none; font-weight: 800; margin-top: 10px; 
         }
-        .btn:hover { transform: scale(1.1); box-shadow: 0 8px 25px rgba(255, 75, 43, 0.5); }
 
         .sns-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-        .sns-item { background: #f8f9fa; padding: 12px 25px; border-radius: 30px; text-decoration: none; color: #444; display: flex; align-items: center; gap: 10px; transition: 0.3s; font-weight: bold; border: 1px solid #ddd; }
-        .sns-item:hover { background: var(--main-color); color: white; transform: translateY(-3px); }
+        .sns-item { background: #f8f9fa; padding: 10px 20px; border-radius: 30px; text-decoration: none; color: #444; font-weight: bold; border: 1px solid #ddd; transition: 0.3s; }
+        .sns-item:hover { background: var(--main-color); color: white; }
 
         footer { text-align: center; padding: 40px; color: #aaa; font-size: 0.9rem; }
     </style>
@@ -105,9 +113,11 @@
 <body>
 
     <header>
-        <img src="icon.jpg" alt="Rarurei Icon" class="profile-icon">
-        <h1>Rarurei 公式サイト</h1>
-        <p>ゆっくり実況者</p>
+        <img src="header-bg.jpg" alt="" class="header-bg-image">
+        <div class="header-content">
+            <img src="icon.jpg" alt="Rarurei Icon" class="profile-icon">
+            <h1>Rarurei 公式サイト</h1>
+        </div>
     </header>
 
     <div class="stats-bar">
@@ -129,7 +139,9 @@
 
         <section id="videos">
             <h2>📺 最新の動画</h2>
-            <div class="video-grid" id="video-container"><p id="video-status">読み込み中...</p></div>
+            <div class="video-grid" id="video-container">
+                <p id="video-status">読み込み中...</p>
+            </div>
         </section>
 
         <section id="links">
@@ -152,27 +164,25 @@
         const API_KEY = 'AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM'; 
         const CHANNEL_ID = 'UCnceIu-LX9qqedi_GcfQ5Tw';
 
-        async function fetchSubCount() {
+        async function fetchYouTubeData() {
             try {
-                const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
-                const response = await fetch(url);
-                const data = await response.json();
-                if (data.items) {
-                    const count = data.items[0].statistics.subscriberCount;
+                // 登録者数の取得
+                const subUrl = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
+                const subResponse = await fetch(subUrl);
+                const subData = await subResponse.json();
+                if (subData.items) {
+                    const count = subData.items[0].statistics.subscriberCount;
                     document.getElementById('subscriber-count').innerText = Number(count).toLocaleString();
                 }
-            } catch (error) { console.error(error); }
-        }
 
-        async function fetchLatestVideos() {
-            const container = document.getElementById('video-container');
-            try {
-                const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=3&type=video`;
-                const response = await fetch(url);
-                const data = await response.json();
-                if (data.items) {
+                // 最新動画の取得
+                const videoUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=3&type=video`;
+                const videoResponse = await fetch(videoUrl);
+                const videoData = await videoResponse.json();
+                const container = document.getElementById('video-container');
+                if (videoData.items) {
                     container.innerHTML = '';
-                    data.items.forEach(item => {
+                    videoData.items.forEach(item => {
                         container.innerHTML += `
                             <div class="video-card">
                                 <a href="https://www.youtube.com/watch?v=${item.id.videoId}" target="_blank">
@@ -182,10 +192,13 @@
                             </div>`;
                     });
                 }
-            } catch (error) { document.getElementById('video-status').innerText = '通信エラーが発生しました。'; }
+            } catch (error) {
+                console.error('YouTubeデータの取得に失敗:', error);
+                document.getElementById('video-status').innerText = '通信エラーが発生しました。';
+            }
         }
 
-        window.onload = function() { fetchSubCount(); fetchLatestVideos(); };
+        window.onload = fetchYouTubeData;
     </script>
 </body>
 </html>
