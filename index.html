@@ -461,6 +461,64 @@
             transform: scale(0.9) !important;
             transition: 0.1s;
         }
+
+       /* --- アイコンのズレ修正 ＆ 虹色ぐるぐる追加 --- */
+
+        /* 1. アイコンを囲むコンテナの調整（中央配置を固定） */
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 2. アイコン本体のズレを修正し、虹色アニメの基準点にする */
+        .profile-icon {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            z-index: 2;
+            /* 既存のfloatとの干渉を防ぐため、基準位置をリセット */
+            transform-origin: center center;
+        }
+
+        /* 3. 虹色のぐるぐる回る外周エフェクト */
+        .profile-icon::before {
+            content: "";
+            position: absolute;
+            top: -10px;    /* アイコンより少し外側 */
+            left: -10px;   /* アイコンより少し外側 */
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            padding: 8px;  /* 虹色の太さ */
+            background: conic-gradient(
+                #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff, #ff0000
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: rainbowRotate 3s linear infinite;
+            z-index: -1; /* アイコンの背後に配置 */
+        }
+
+        /* 4. ぐるぐる回転アニメーション */
+        @keyframes rainbowRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 5. ホバー時に虹色がさらに強く光る演出 */
+        .profile-icon:hover::before {
+            padding: 12px;
+            filter: blur(2px) brightness(1.2);
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 <body>
