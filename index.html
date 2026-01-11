@@ -279,12 +279,12 @@
 
     <script>
         // 【重要】ここにGoogle Cloudで取得したAPIキーを入れてください
-        const API_KEY = AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM; 
+        const API_KEY = 'AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM'; 
         const CHANNEL_ID = 'UCnceIu-LX9qqedi_GcfQ5Tw'; // RarureiのチャンネルID
 
         // 1. チャンネル登録者数を取得
         async function fetchSubCount() {
-            if(API_KEY === AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM) return; // APIキーがない場合は実行しない
+            if(API_KEY === 'AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM') return; // APIキーがない場合は実行しない
             try {
                 const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
                 const response = await fetch(url);
@@ -301,7 +301,7 @@
         // 2. 最新動画を取得
         async function fetchLatestVideos() {
             const container = document.getElementById('video-container');
-            if(API_KEY === AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM) {
+            if(API_KEY === 'AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM') {
                 container.innerHTML = '<p>※自動更新機能を使うにはAPIキーの設定が必要です。<br><a href="https://www.youtube.com/@Rarurei_CH" target="_blank">YouTubeで動画を見る</a></p>';
                 return;
             }
