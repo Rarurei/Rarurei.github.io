@@ -12,15 +12,29 @@
     <style>
         :root {
             --main-color: #00AEEF;
-            --accent-color: #007bb5;
             --bg-color: #E6F7FF;
             --card-bg: #ffffff;
             --text-color: #33393F;
+            --discord-color: #5865F2;
         }
 
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(20px); }
+        /* 背景アニメーション */
+        @keyframes bgMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+
+        /* 登場アニメーション */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ボタンのぷるぷる待機アニメ */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
         }
 
         body { 
@@ -29,72 +43,109 @@
             background-color: var(--bg-color); 
             background-image: radial-gradient(#b3e5fc 1.5px, transparent 1.5px);
             background-size: 25px 25px;
+            animation: bgMove 10s linear infinite; /* 背景が動く */
             color: var(--text-color); 
             line-height: 1.6; 
-            animation: fadeInPage 1.2s ease-out;
+            overflow-x: hidden;
         }
 
         header { 
             background: linear-gradient(135deg, #00c6ff, #0072ff);
             color: white; 
             text-align: center; 
-            padding: 60px 20px;
+            padding: 80px 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
         }
 
         .profile-icon {
-            width: 130px;
-            height: 130px;
+            width: 140px; height: 140px;
             border-radius: 50%;
             border: 5px solid white;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             object-fit: cover;
             background-color: white;
             margin-bottom: 15px;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .profile-icon:hover { transform: scale(1.1) rotate(5deg); }
+        .profile-icon:hover { transform: scale(1.1) rotate(10deg); }
 
-        header h1 { font-size: 2.6rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
-
-        .stats-bar { 
-            background: white; text-align: center; padding: 18px; 
-            margin: -35px auto 35px; width: 85%; max-width: 550px; 
-            border-radius: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
-            position: relative; z-index: 10; border: 2px solid var(--main-color);
-        }
-        .stats-bar span { font-weight: 800; color: #ff0000; font-size: 1.4rem; }
-
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
         
         section { 
-            background: var(--card-bg); border-radius: 25px; padding: 35px; 
-            margin-bottom: 40px; box-shadow: 0 10px 30px rgba(179, 229, 252, 0.5); 
-            transition: transform 0.3s ease;
+            background: var(--card-bg); 
+            border-radius: 25px; 
+            padding: 35px; 
+            margin-bottom: 40px; 
+            box-shadow: 0 10px 30px rgba(179, 229, 252, 0.6); 
+            animation: fadeInUp 1s ease-out both;
         }
-        section:hover { transform: translateY(-5px); }
 
-        h2 { color: var(--main-color); border-left: 8px solid var(--main-color); padding-left: 15px; margin-bottom: 25px; }
+        /* セクションを順番に出す設定 */
+        section:nth-child(1) { animation-delay: 0.2s; }
+        section:nth-child(2) { animation-delay: 0.4s; }
+        section:nth-child(3) { animation-delay: 0.6s; }
 
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .video-card { background: #fff; border-radius: 15px; overflow: hidden; border: 1px solid #eee; transition: 0.4s; }
-        .video-card:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
-        .video-card img { width: 100%; height: auto; }
-        .video-card p { padding: 15px; font-size: 0.95rem; font-weight: bold; margin: 0; }
+        h2 { 
+            color: var(--main-color); 
+            border-left: 8px solid var(--main-color); 
+            padding-left: 15px; 
+            margin-bottom: 25px; 
+            font-size: 1.8rem;
+        }
+
+        /* リストのスタイル */
+        ul { list-style: none; padding: 0; }
+        li { 
+            background: #f0faff; 
+            margin-bottom: 10px; 
+            padding: 12px 15px; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center;
+            border: 1px solid #d0efff;
+        }
+        li::before { content: "✅"; margin-right: 10px; }
 
         .btn { 
-            display: inline-block; background: linear-gradient(135deg, #ff4b2b, #ff416c); 
-            color: white; padding: 15px 40px; border-radius: 50px; 
-            text-decoration: none; font-weight: 800; margin-top: 10px; 
+            display: inline-block; 
+            background: linear-gradient(135deg, #ff4b2b, #ff416c); 
+            color: white; padding: 16px 45px; 
+            border-radius: 50px; 
+            text-decoration: none; font-weight: 800; 
+            margin-top: 10px; 
             transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
+            animation: pulse 4s infinite; /* ぷるぷる動く */
         }
-        .btn:hover { transform: scale(1.1); box-shadow: 0 8px 20px rgba(255, 75, 43, 0.4); }
+        .btn:hover { transform: scale(1.1); box-shadow: 0 8px 25px rgba(255, 75, 43, 0.5); }
+
+        .btn-discord {
+            background: var(--discord-color);
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+            animation: none; /* Discordボタンは別の動きに */
+        }
+        .btn-discord:hover { background: #4752c4; }
 
         .sns-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-        .sns-item { background: #f8f9fa; padding: 12px 25px; border-radius: 30px; text-decoration: none; color: #444; font-weight: bold; border: 1px solid #ddd; transition: 0.3s; }
-        .sns-item:hover { background: var(--main-color); color: white; transform: translateY(-3px); }
+        .sns-item { 
+            background: #fff; padding: 12px 20px; 
+            border-radius: 30px; text-decoration: none; color: #444; 
+            font-weight: bold; border: 2px solid #eee; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .sns-item:hover { 
+            background: var(--main-color); border-color: var(--main-color); 
+            color: white; transform: scale(1.1); 
+        }
 
-        footer { text-align: center; padding: 40px; color: #aaa; font-size: 0.9rem; }
+        .note { 
+            font-size: 0.85rem; color: #666; margin-top: 15px; 
+            background: #f9f9f9; padding: 15px; border-radius: 15px;
+            border: 1px dashed #ccc;
+        }
+
+        footer { text-align: center; padding: 60px 40px; color: #aaa; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -102,30 +153,36 @@
     <header>
         <img src="icon.jpg" alt="Rarurei Icon" class="profile-icon">
         <h1>Rarurei 公式サイト</h1>
-        <p>ゆっくり実況者</p>
+        <p>鬼畜世界でサバイバル！ゆっくり実況者</p>
     </header>
-
-    <div class="stats-bar">
-        現在 <span id="subscriber-count">読み込み中...</span> 人がチャンネル登録中！
-    </div>
 
     <div class="container">
         <section id="about">
             <h2>🐈 自己紹介 👻</h2>
-            <p>こんにちは！🐈の👻のらるれいです！<br>色々しているゆっくり実況者で〜す。<br>そこの君！チャンネル登録してほしい！</p>
-            <div style="background:#E1F5FE; padding:20px; border-radius:15px; border: 2px solid #B3E5FC;">
-                <p><strong>📅 投稿日：</strong> 毎週日曜 夜7時投稿！（週1投稿予定）</p>
-                <p><strong>🎮 スタイル：</strong> ゆっくり実況をメインに、マイクラなど様々な企画に挑戦中！</p>
-            </div>
+            <p>こんにちは！🐈の👻のらるれいです！<br>色々しているゆっくり実況者で〜す。<br>そこの君！下のボタンからチャンネル登録してほしい！</p>
             <div style="text-align: center; margin-top:30px;">
                 <a href="https://www.youtube.com/@Rarurei_CH" target="_blank" class="btn"><i class="fab fa-youtube"></i> チャンネル登録する</a>
             </div>
         </section>
 
-        <section id="videos">
-            <h2>📺 最新の動画</h2>
-            <div class="video-grid" id="video-container">
-                <p id="video-status">YouTubeデータを読み込み中...</p>
+        <section id="recruit">
+            <h2>🎥 動画班 募集！</h2>
+            <p>一緒に動画を盛り上げてくれる仲間を募集中です！</p>
+            <p><strong>✅ 参加条件</strong></p>
+            <ul>
+                <li>Minecraft（統合版）ができる</li>
+                <li>13歳以上であること</li>
+                <li>MicrosoftアカウントにサインインしてMinecraftができる</li>
+                <li>生声で通話に参加可能の方 (ネット公開ではない)</li>
+                <li>やる気がある</li>
+            </ul>
+            <div style="text-align: center; margin-top: 25px;">
+                <p>⤵︎ 条件満たしてる方 ⤵︎</p>
+                <a href="https://discord.gg/vupWgSe5rg" target="_blank" class="btn btn-discord"><i class="fab fa-discord"></i> Discordに参加する</a>
+            </div>
+            <div class="note">
+                ※ボランティア感覚でお願いします。<br>
+                ※入る際は名前をゲーム名またはSNSアカウント名にしてください。
             </div>
         </section>
 
@@ -137,7 +194,7 @@
                 <a href="https://www.tiktok.com/@rarurei_yt" target="_blank" class="sns-item"><i class="fab fa-tiktok"></i> TikTok</a>
                 <a href="https://linevoom.line.me/user/_dWZiDZmXaPJG2qHnX46zacGP_bOcPBZT7i5tXqU" target="_blank" class="sns-item"><i class="fab fa-line"></i> LINE VOOM</a>
                 <a href="https://u.pokekara.com/user/3828724496" target="_blank" class="sns-item"><i class="fas fa-music"></i> Pokekara</a>
-                <a href="https://www.nicovideo.jp/user/142267657" target="_blank" class="sns-item"><i class="fas fa-tv"></i> ニコニコ動画</a>
+                <a href="https://www.nicovideo.jp/user/142267657" target="_blank" class="sns-item"><i class="fas fa-tv"></i> ニコニコ</a>
                 <a href="https://www.instagram.com/rarurei_yt/" target="_blank" class="sns-item"><i class="fab fa-instagram"></i> Instagram</a>
             </div>
         </section>
@@ -145,55 +202,5 @@
 
     <footer><p>&copy; Rarurei (らるれい) - All rights reserved.</p></footer>
 
-    <script>
-        // APIキーとチャンネルID（ここは変更しないでください）
-        const API_KEY = 'AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM'; 
-        const CHANNEL_ID = 'UCnceIu-LX9qqedi_GcfQ5Tw';
-
-        async function fetchYouTubeData() {
-            try {
-                // 1. 登録者数の取得
-                const subUrl = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
-                const subRes = await fetch(subUrl);
-                const subData = await subRes.json();
-                
-                if (subData.error) {
-                    console.error('API Error (Subs):', subData.error.message);
-                    document.getElementById('subscriber-count').innerText = 'エラー';
-                } else if (subData.items && subData.items.length > 0) {
-                    const count = subData.items[0].statistics.subscriberCount;
-                    document.getElementById('subscriber-count').innerText = Number(count).toLocaleString();
-                }
-
-                // 2. 最新動画の取得
-                const vidUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=3&type=video`;
-                const vidRes = await fetch(vidUrl);
-                const vidData = await vidRes.json();
-                const container = document.getElementById('video-container');
-
-                if (vidData.error) {
-                    console.error('API Error (Videos):', vidData.error.message);
-                    container.innerHTML = '<p>動画を取得できませんでした（API制限の可能性があります）</p>';
-                } else if (vidData.items) {
-                    container.innerHTML = '';
-                    vidData.items.forEach(item => {
-                        container.innerHTML += `
-                            <div class="video-card">
-                                <a href="https://www.youtube.com/watch?v=${item.id.videoId}" target="_blank">
-                                    <img src="${item.snippet.thumbnails.medium.url}" alt="Thumbnail">
-                                </a>
-                                <p>${item.snippet.title}</p>
-                            </div>`;
-                    });
-                }
-            } catch (error) {
-                console.error('Network Error:', error);
-                document.getElementById('video-status').innerText = 'ネットワーク接続に失敗しました。';
-            }
-        }
-
-        // ページが完全に読み込まれてから実行
-        window.addEventListener('DOMContentLoaded', fetchYouTubeData);
-    </script>
 </body>
 </html>
