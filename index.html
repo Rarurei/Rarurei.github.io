@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ゆっくり実況者「らるれい」の公式サイトです。最新動画、動画班の募集条件、各種SNSリンクをまとめています。">
-    <meta name="keywords" content="Rarurei,らるれい,ゆっくり実況,マイクラ,動画班">
+    <meta name="description" content="ゆっくり実況者「らるれい」の公式サイトです。最新動画、各種SNSリンクをまとめています。">
+    <meta name="keywords" content="Rarurei,らるれい,ゆっくり実況,マイクラ">
     <title>Rarurei公式サイト</title>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -18,7 +18,6 @@
             --text-color: #33393F;
         }
 
-        /* アニメーション設定 */
         @keyframes fadeInPage {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -32,10 +31,9 @@
             background-size: 25px 25px;
             color: var(--text-color); 
             line-height: 1.6; 
-            animation: fadeInPage 1.2s ease-out; /* ページ全体のふわっと表示 */
+            animation: fadeInPage 1.2s ease-out;
         }
 
-        /* ヘッダー：背景画像なしのシンプルスタイル */
         header { 
             background: linear-gradient(135deg, #00c6ff, #0072ff);
             color: white; 
@@ -44,7 +42,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* アイコン画像のアニメーション */
         .profile-icon {
             width: 130px;
             height: 130px;
@@ -70,7 +67,6 @@
 
         .container { max-width: 900px; margin: 0 auto; padding: 20px; }
         
-        /* 各セクションのホバーアニメーション */
         section { 
             background: var(--card-bg); border-radius: 25px; padding: 35px; 
             margin-bottom: 40px; box-shadow: 0 10px 30px rgba(179, 229, 252, 0.5); 
@@ -110,7 +106,7 @@
     </header>
 
     <div class="stats-bar">
-        現在 <span id="subscriber-count">---</span> 人がチャンネル登録中！
+        現在 <span id="subscriber-count">読み込み中...</span> 人がチャンネル登録中！
     </div>
 
     <div class="container">
@@ -129,7 +125,7 @@
         <section id="videos">
             <h2>📺 最新の動画</h2>
             <div class="video-grid" id="video-container">
-                <p id="video-status">読み込み中...</p>
+                <p id="video-status">YouTubeデータを読み込み中...</p>
             </div>
         </section>
 
@@ -150,44 +146,54 @@
     <footer><p>&copy; Rarurei (らるれい) - All rights reserved.</p></footer>
 
     <script>
+        // APIキーとチャンネルID（ここは変更しないでください）
         const API_KEY = 'AIzaSyCJz4vPpya89R3ORVIUlcxleEgxYBG5ztM'; 
         const CHANNEL_ID = 'UCnceIu-LX9qqedi_GcfQ5Tw';
 
         async function fetchYouTubeData() {
             try {
-                // 登録者数
+                // 1. 登録者数の取得
                 const subUrl = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
                 const subRes = await fetch(subUrl);
                 const subData = await subRes.json();
-                if (subData.items) {
+                
+                if (subData.error) {
+                    console.error('API Error (Subs):', subData.error.message);
+                    document.getElementById('subscriber-count').innerText = 'エラー';
+                } else if (subData.items && subData.items.length > 0) {
                     const count = subData.items[0].statistics.subscriberCount;
                     document.getElementById('subscriber-count').innerText = Number(count).toLocaleString();
                 }
 
-                // 最新動画
+                // 2. 最新動画の取得
                 const vidUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=3&type=video`;
                 const vidRes = await fetch(vidUrl);
                 const vidData = await vidRes.json();
                 const container = document.getElementById('video-container');
-                if (vidData.items) {
+
+                if (vidData.error) {
+                    console.error('API Error (Videos):', vidData.error.message);
+                    container.innerHTML = '<p>動画を取得できませんでした（API制限の可能性があります）</p>';
+                } else if (vidData.items) {
                     container.innerHTML = '';
                     vidData.items.forEach(item => {
                         container.innerHTML += `
                             <div class="video-card">
                                 <a href="https://www.youtube.com/watch?v=${item.id.videoId}" target="_blank">
-                                    <img src="${item.snippet.thumbnails.medium.url}">
+                                    <img src="${item.snippet.thumbnails.medium.url}" alt="Thumbnail">
                                 </a>
                                 <p>${item.snippet.title}</p>
                             </div>`;
                     });
                 }
             } catch (error) {
-                console.error('取得エラー:', error);
-                document.getElementById('video-status').innerText = '読み込みに失敗しました。';
+                console.error('Network Error:', error);
+                document.getElementById('video-status').innerText = 'ネットワーク接続に失敗しました。';
             }
         }
 
-        window.onload = fetchYouTubeData;
+        // ページが完全に読み込まれてから実行
+        window.addEventListener('DOMContentLoaded', fetchYouTubeData);
     </script>
 </body>
 </html>
