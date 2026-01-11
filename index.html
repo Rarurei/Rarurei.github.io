@@ -260,9 +260,32 @@ details[open] summary::after {
                 <i class="fab fa-x-twitter"></i> Rarurei / らる (@Rarurei_YouTube)
             </a>
 
-           <a href="https://mail.google.com/mail/?view=cm&fs=1&to=Rarurei.CH@gmail.com" target="_blank" style="color: #ea4335; text-decoration: none; font-weight: bold; background: #fff; padding: 10px 20px; border-radius: 10px; border: 1px solid #ddd; width: 80%; max-width: 300px; display: inline-block;">
+        <a href="javascript:void(0);" onclick="openGmail();" style="color: #ea4335; text-decoration: none; font-weight: bold; background: #fff; padding: 10px 20px; border-radius: 10px; border: 1px solid #ddd; width: 80%; max-width: 300px; display: inline-block;">
     <i class="fas fa-envelope"></i> Rarurei.CH@gmail.com
 </a>
+
+<script>
+function openGmail() {
+    const email = "Rarurei.CH@gmail.com";
+    const subject = "コラボ・お問い合わせ";
+    
+    // スマホ（iOS/Android）かどうか判定
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        // スマホの場合はアプリ起動を試みる
+        window.location.href = "googlegmail:///co?to=" + email;
+        
+        // アプリが入っていない場合や動かない時のための予備（0.5秒後に起動）
+        setTimeout(function() {
+            window.location.href = "mailto:" + email;
+        }, 500);
+    } else {
+        // パソコンの場合はブラウザ版Gmailを開く
+        window.open("https://mail.google.com/mail/?view=cm&fs=1&to=" + email, "_blank");
+    }
+}
+</script>
         </div>
     </div>
 
