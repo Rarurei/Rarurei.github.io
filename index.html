@@ -16,13 +16,7 @@
             --card-bg: #ffffff;
             --text-color: #33393F;
             --discord-color: #5865F2;
-            --contact-pink: #ff416c; /* 追加：コラボ用ピンク */
-        }
-
-        /* 背景アニメーション */
-        @keyframes bgMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 50px 50px; }
+            --contact-pink: #ff416c;
         }
 
         /* 登場アニメーション */
@@ -34,7 +28,7 @@
         /* ボタンのぷるぷる待機アニメ */
         @keyframes pulse {
             0% { transform: scale(1); }
-            5% { transform: scale(1.1); }
+            5% { transform: scale(1.08); }
             10% { transform: scale(1); }
         }
 
@@ -45,28 +39,26 @@
             100% { left: 100%; }
         }
 
-        /* 【追加】虹色に光るボーダーアニメ */
-        @keyframes rainbowBorder {
-            0% { border-color: #00AEEF; box-shadow: 0 0 10px rgba(0, 174, 239, 0.4); }
-            33% { border-color: #ff416c; box-shadow: 0 0 15px rgba(255, 65, 108, 0.4); }
-            66% { border-color: #5865F2; box-shadow: 0 0 10px rgba(88, 101, 242, 0.4); }
-            100% { border-color: #00AEEF; box-shadow: 0 0 10px rgba(0, 174, 239, 0.4); }
-        }
-
-        /* 【追加】ふわふわ浮遊アニメ */
+        /* ふわふわ浮遊アニメ */
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
+        }
+
+        /* 虹色ぐるぐる */
+        @keyframes rainbowRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         body { 
             margin: 0; padding: 0; 
-            font-family: 'M PLUS Rounded 1c', sans-serif; 
+            font-family: 'M PLUS Rounded 1c', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
             background-color: var(--bg-color); 
             background-image: radial-gradient(#b3e5fc 1.5px, transparent 1.5px);
             background-size: 25px 25px;
-            animation: bgMove 10s linear infinite;
+            animation: none;
             color: var(--text-color); 
             line-height: 1.6; 
             overflow-x: hidden;
@@ -77,9 +69,17 @@
             color: white; 
             text-align: center; 
             padding: 80px 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            animation: fadeInUp 1s ease-out;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.8s ease-out;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 {
+            display: inline-block;
         }
 
         .profile-icon {
@@ -90,10 +90,47 @@
             object-fit: cover;
             background-color: white;
             margin-bottom: 15px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: float 4s ease-in-out infinite; /* アイコンを浮かせる */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: float 4s ease-in-out infinite;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            z-index: 2;
+            transform-origin: center center;
+            outline: 2px solid transparent;
+            outline-offset: 10px;
         }
-        .profile-icon:hover { transform: scale(1.2) rotate(360deg); }
+        .profile-icon:hover { transform: scale(1.12); }
+
+        /* 虹色のぐるぐる外周エフェクト */
+        .profile-icon::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            padding: 8px;
+            background: conic-gradient(
+                #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff, #ff0000
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: rainbowRotate 3s linear infinite;
+            z-index: -1;
+        }
+        .profile-icon:hover::before {
+            padding: 12px;
+            filter: blur(2px) brightness(1.2);
+            transition: all 0.3s ease;
+        }
 
         .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
         
@@ -102,19 +139,23 @@
             border-radius: 25px; 
             padding: 35px; 
             margin-bottom: 40px; 
-            box-shadow: 0 10px 30px rgba(179, 229, 252, 0.4); 
-            animation: fadeInUp 1s ease-out both;
-            transition: transform 0.3s ease, border 0.3s ease;
+            box-shadow: 0 8px 25px rgba(179, 229, 252, 0.25); 
+            animation: fadeInUp 0.8s ease-out both;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             border: 2px solid transparent;
+            overflow: hidden;
+            position: relative;
+            backface-visibility: hidden;
         }
         section:hover { 
-            transform: translateY(-10px); 
-            animation: rainbowBorder 3s linear infinite; /* ホバーで枠が虹色に光る */
+            transform: translateY(-8px);
+            border-color: rgba(0, 174, 239, 0.25);
+            box-shadow: 0 12px 30px rgba(0, 174, 239, 0.12);
         }
 
-        section:nth-child(1) { animation-delay: 0.2s; }
-        section:nth-child(2) { animation-delay: 0.4s; }
-        section:nth-child(3) { animation-delay: 0.6s; }
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.3s; }
 
         h2 { 
             color: var(--main-color); 
@@ -122,7 +163,7 @@
             padding-left: 15px; 
             margin-bottom: 25px; 
             font-size: 1.8rem;
-            position: relative;
+            font-family: 'M PLUS Rounded 1c', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
         }
 
         ul { list-style: none; padding: 0; }
@@ -134,12 +175,13 @@
             display: flex; 
             align-items: center;
             border: 1px solid #d0efff;
-            transition: 0.3s;
+            transition: transform 0.2s, background 0.2s;
+            font-family: 'M PLUS Rounded 1c', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
         }
-        li:hover { transform: translateX(15px) scale(1.05); background: #e0f5ff; }
+        li:hover { transform: translateX(12px) scale(1.03); background: #e0f5ff; }
         li::before { content: "✅"; margin-right: 10px; }
 
-        /* 光るエフェクト付きボタン */
+        /* ボタン */
         .btn { 
             display: inline-block; 
             background: linear-gradient(135deg, #ff4b2b, #ff416c); 
@@ -147,9 +189,9 @@
             border-radius: 50px; 
             text-decoration: none; font-weight: 800; 
             margin-top: 10px; 
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
-            animation: pulse 4s infinite;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.25);
+            animation: pulse 5s infinite;
             position: relative;
             overflow: hidden;
         }
@@ -160,31 +202,31 @@
             left: -100%;
             width: 50%;
             height: 200%;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.35);
             transform: rotate(30deg);
-            animation: shine 3s infinite;
+            animation: shine 4s infinite;
         }
-        .btn:hover { transform: scale(1.15) rotate(-2deg); box-shadow: 0 8px 25px rgba(255, 75, 43, 0.5); }
+        .btn:hover { transform: scale(1.12) rotate(-2deg); box-shadow: 0 8px 22px rgba(255, 75, 43, 0.45); }
 
         .btn-discord {
             background: var(--discord-color);
-            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
-            animation: pulse 4s infinite 2s; 
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.25);
+            animation: pulse 5s infinite 2s; 
         }
-        .btn-discord:hover { background: #4752c4; transform: scale(1.15) rotate(2deg); }
+        .btn-discord:hover { background: #4752c4; transform: scale(1.12) rotate(2deg); }
 
         .sns-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
         .sns-item { 
             background: #fff; padding: 12px 20px; 
             border-radius: 30px; text-decoration: none; color: #444; 
-            font-weight: bold; border: 2px solid #eee; transition: 0.4s;
+            font-weight: bold; border: 2px solid #eee; transition: all 0.3s;
             display: flex; align-items: center; gap: 8px;
         }
-        .sns-item i { transition: 0.5s ease; }
+        .sns-item i { transition: transform 0.4s ease; }
         .sns-item:hover { 
             background: var(--main-color); border-color: var(--main-color); 
-            color: white; transform: scale(1.2) translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 174, 239, 0.4);
+            color: white; transform: scale(1.15) translateY(-4px);
+            box-shadow: 0 6px 18px rgba(0, 174, 239, 0.25);
         }
         .sns-item:hover i { transform: rotate(360deg); }
 
@@ -194,7 +236,8 @@
             border: 1px dashed #ccc;
         }
 
-        footer { text-align: center; padding: 60px 40px; color: #aaa; font-size: 0.9rem; }
+        footer { text-align: center; padding: 60px 40px; color: #aaa; font-size: 0.9rem; transition: letter-spacing 0.5s; }
+        footer:hover { letter-spacing: 5px; color: var(--main-color); }
 
         /* Q&Aのデザイン */
         details {
@@ -203,9 +246,9 @@
             border-radius: 15px;
             margin-bottom: 10px;
             overflow: hidden;
-            transition: 0.3s;
+            transition: transform 0.2s, background 0.2s;
         }
-        details:hover { transform: scale(1.02); background: #fff; }
+        details:hover { transform: scale(1.01); background: #fff; }
         details[open] {
             background: #fff;
             border-color: var(--main-color);
@@ -220,11 +263,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-family: 'M PLUS Rounded 1c', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
         }
         summary::after {
             content: '▼';
             font-size: 0.8rem;
-            transition: 0.3s;
+            transition: transform 0.3s;
         }
         details[open] summary::after {
             transform: rotate(180deg);
@@ -232,19 +276,19 @@
         .qa-content {
             padding: 0 15px 15px;
             border-top: 1px dashed #d0efff;
-            animation: fadeInUp 0.5s ease-out;
+            animation: fadeInUp 0.4s ease-out;
         }
         .qa-item {
             margin-top: 15px;
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
-            transition: 0.3s;
+            transition: padding-left 0.2s, color 0.2s;
         }
         .qa-item:hover { padding-left: 10px; color: var(--main-color); }
         .q-txt { font-weight: bold; color: var(--main-color); display: block; }
         .a-txt { color: #555; display: block; margin-left: 10px; }
 
-        /* --- 【大幅修正・強化】コラボ依頼のデザイン --- */
+        /* コラボ依頼のデザイン */
         .contact-info {
             margin-top: 20px;
             padding: 25px;
@@ -253,90 +297,29 @@
             border-radius: 20px;
             font-size: 0.95rem;
             color: #d63384;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
             z-index: 1;
         }
-
-        /* 背景に動く光の玉を追加 */
-        .contact-info::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 65, 108, 0.1) 0%, transparent 70%);
-            animation: rotateLight 10s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes rotateLight {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
         .contact-info:hover { 
             border-color: #ff416c; 
-            box-shadow: 0 15px 35px rgba(255, 65, 108, 0.3); 
-            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(255, 65, 108, 0.2); 
+            transform: translateY(-6px);
             color: #b02a6a;
         }
-
-        /* お問い合わせリンクをネオン風に光らせる */
         .contact-info a {
             display: inline-block;
-            transition: 0.3s;
+            transition: transform 0.2s, filter 0.2s;
             position: relative;
         }
-
         .contact-info a:hover {
-            text-shadow: 0 0 8px rgba(255, 65, 108, 0.6);
-            transform: scale(1.05);
-            filter: brightness(1.2);
+            text-shadow: 0 0 8px rgba(255, 65, 108, 0.5);
+            transform: scale(1.04);
+            filter: brightness(1.15);
         }
 
-    /* --- 追加エフェクト 11-25 --- */
-
-        /* 11. ヘッダーテキストの「3D震動」：常に微妙に揺れて存在感を出す */
-        header h1 {
-            display: inline-block;
-            animation: tiltShake 3s infinite linear;
-        }
-        @keyframes tiltShake {
-            0%, 100% { transform: rotate(-2deg); }
-            50% { transform: rotate(2deg); }
-        }
-
-        /* 12. 背景に「流星」を走らせる（擬似要素） */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, transparent 48%, #fff 50%, transparent 52%);
-            background-size: 300% 300%;
-            animation: meteor 8s linear infinite;
-            pointer-events: none;
-            opacity: 0.2;
-            z-index: 101;
-        }
-        @keyframes meteor {
-            0% { background-position: 200% -100%; }
-            20% { background-position: -100% 200%; }
-            100% { background-position: -100% 200%; }
-        }
-
-        /* 13. マウスホバーでセクション背景が「波打つ」 */
-        section {
-            overflow: hidden;
-            position: relative;
-        }
-        section:hover {
-            background: radial-gradient(circle at center, #ffffff 0%, #f0faff 100%);
-        }
-
-        /* 14. リンク(a)の下線が中央から広がるアニメ */
+        /* リンク下線アニメ */
         a {
             position: relative;
             text-decoration: none;
@@ -358,173 +341,17 @@
             transform-origin: bottom left;
         }
 
-        /* 15. Q&Aの矢印(▼)が「ジャンプ」する */
-        summary:hover::after {
-            animation: arrowJump 0.5s infinite alternate;
-        }
-        @keyframes arrowJump {
-            from { transform: translateY(0); }
-            to { transform: translateY(-5px); }
-        }
-
-        /* 16. プロフィールアイコンに「回転する光のリング」を追加 */
-        .profile-icon {
-            outline: 2px solid transparent;
-            outline-offset: 10px;
-            transition: outline-color 0.5s;
-        }
-        .profile-icon:hover {
-            outline: 2px dashed var(--main-color);
-            animation: float 4s ease-in-out infinite, rotateOutline 10s linear infinite;
-        }
-        @keyframes rotateOutline {
-            from { transform: scale(1.2) rotate(0deg); }
-            to { transform: scale(1.2) rotate(360deg); }
-        }
-
-        /* 17. リストのチェックマーク(✅)が「回転」して登場 */
-        li:hover::before {
-            animation: checkSpin 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes checkSpin {
-            from { transform: rotate(-180deg) scale(0); }
-            to { transform: rotate(0) scale(1); }
-        }
-
-        /* 18. ボタンの影が「呼吸」するように拡大縮小 */
-        .btn {
-            animation: pulse 4s infinite, shadowBreath 2s infinite alternate;
-        }
-        @keyframes shadowBreath {
-            from { box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3); }
-            to { box-shadow: 0 4px 30px rgba(255, 75, 43, 0.6); }
-        }
-
-        /* 19. SNSアイテムがホバーで「左右に揺れる」 */
-        .sns-item:hover {
-            animation: wiggle 0.3s infinite;
-        }
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-3deg) scale(1.2); }
-            50% { transform: rotate(3deg) scale(1.2); }
-        }
-
-        /* 20. 文字に「光の走査線」が通る */
-        h2::after {
-            content: "";
-            position: absolute;
-            left: 0; top: 0; width: 50px; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-            animation: scan 3s infinite;
-        }
-        @keyframes scan {
-            0% { left: -100px; }
-            30% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        /* 21. footerにマウスを乗せると「文字間隔が広がる」 */
-        footer {
-            transition: letter-spacing 0.5s;
-        }
-        footer:hover {
-            letter-spacing: 5px;
-            color: var(--main-color);
-        }
-
-        /* 22. コラボ依頼ボックスが「虹色に呼吸」する */
-        .contact-info {
-            animation: borderBreath 4s infinite alternate;
-        }
-        @keyframes borderBreath {
-            from { border-color: #ffdde1; }
-            to { border-color: var(--main-color); transform: scale(1.01); }
-        }
-
-        /* 23. 非表示にしていた要素がスクロールで「スライドイン」（簡易版） */
-        section {
-            backface-visibility: hidden;
-        }
-
-        /* 24. 全体の背景ドットが「拡大縮小」する */
-        @keyframes dotPulse {
-            0% { background-size: 25px 25px; }
-            50% { background-size: 30px 30px; }
-            100% { background-size: 25px 25px; }
-        }
-        body {
-            animation: bgMove 10s linear infinite, dotPulse 5s ease-in-out infinite;
-        }
-
-        /* 25. クリックした瞬間の「縮小」エフェクトをすべてのクリック可能要素に */
+        /* クリックエフェクト */
         a:active, button:active, .btn:active, summary:active {
-            transform: scale(0.9) !important;
+            transform: scale(0.93) !important;
             transition: 0.1s;
-        }
-
-       /* --- アイコンのズレ修正 ＆ 虹色ぐるぐる追加 --- */
-
-        /* 1. アイコンを囲むコンテナの調整（中央配置を固定） */
-        header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* 2. アイコン本体のズレを修正し、虹色アニメの基準点にする */
-        .profile-icon {
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            z-index: 2;
-            /* 既存のfloatとの干渉を防ぐため、基準位置をリセット */
-            transform-origin: center center;
-        }
-
-        /* 3. 虹色のぐるぐる回る外周エフェクト */
-        .profile-icon::before {
-            content: "";
-            position: absolute;
-            top: -10px;    /* アイコンより少し外側 */
-            left: -10px;   /* アイコンより少し外側 */
-            right: -10px;
-            bottom: -10px;
-            border-radius: 50%;
-            padding: 8px;  /* 虹色の太さ */
-            background: conic-gradient(
-                #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff, #ff0000
-            );
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: rainbowRotate 3s linear infinite;
-            z-index: -1; /* アイコンの背後に配置 */
-        }
-
-        /* 4. ぐるぐる回転アニメーション */
-        @keyframes rainbowRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* 5. ホバー時に虹色がさらに強く光る演出 */
-        .profile-icon:hover::before {
-            padding: 12px;
-            filter: blur(2px) brightness(1.2);
-            transition: all 0.3s ease;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="icon.jpg" alt="Rarurei Icon" class="profile-icon">
+        <img src="https://raw.githubusercontent.com/Rarurei/Rarurei.github.io/main/icon.jpg" alt="Rarurei Icon" class="profile-icon">
         <h1>Rarurei 公式サイト</h1>
         <p>ゆっくり実況者</p>
     </header>
@@ -554,7 +381,7 @@
                         <div class="qa-item"><span class="q-txt">Q14. 実況で使っている機材は？</span><span class="a-txt">switchとキャプボ</span></div>
                         <div class="qa-item"><span class="q-txt">Q15. これから挑戦したいゲームは？</span><span class="a-txt">ホラゲー</span></div>
                         <div class="qa-item"><span class="q-txt">Q16. 尊敬している実況者さんは？</span><span class="a-txt">たくさんいます！</span></div>
-                        <div class="qa-item"><span class="q-txt">Q17. 最近ハマっていることは？</span><span class="a-txt">NetherGamesというサーバーでPvP</span></div>
+                        <div class="qa-item"><span class="q-txt">Q17. 最近ハマっていることは？</span><span class="a-txt">ガチャPvPとdonutSMP</span></div>
                         <div class="qa-item"><span class="q-txt">Q18. 好きな飲み物は？</span><span class="a-txt">コーラ (ペプシ)</span></div>
                         <div class="qa-item"><span class="q-txt">Q19. 動画編集のこだわりは？</span><span class="a-txt">おもしろいシーンをできるだけ作る</span></div>
                         <div class="qa-item"><span class="q-txt">Q20. 視聴者さんへ一言！</span><span class="a-txt">チャンネル登録よろしくお願いします</span></div>
@@ -578,35 +405,28 @@
                     </a>
                 </div>
                 <div class="fanart-box" style="margin-top: 20px; padding: 20px; border: 2px dashed #ffb6c1; border-radius: 15px; background: #fffafb; text-align: center;">
-    <p style="margin: 0; font-weight: 800; color: #db7093; font-size: 1.1rem;">
-        <i class="fas fa-paint-brush"></i> ファンアート募集中！
-    </p>
-    <p style="margin: 10px 0 0; font-size: 0.95rem; color: #555;">
-        描いてくれたイラストは、X（旧Twitter）の<strong>DM</strong>または<br>
-        <strong>メンション（@Rarurei_YouTube）</strong>で教えてね！✨
-    </p>
-</div>
+                    <p style="margin: 0; font-weight: 800; color: #db7093; font-size: 1.1rem;">
+                        <i class="fas fa-paint-brush"></i> ファンアート募集中！
+                    </p>
+                    <p style="margin: 10px 0 0; font-size: 0.95rem; color: #555;">
+                        描いてくれたイラストは、<br>
+                        ・X（旧Twitter）のDM<br>
+                        ・YouTubeのメンション (@Rarurei.CH)<br>
+                        ・Gmailで教えてね！✨
+                    </p>
+                </div>
             </div>
         </section>
 
         <section id="recruit">
             <h2>🎥 動画班 募集！</h2>
             <p>一緒に動画を盛り上げてくれる仲間を募集中です！</p>
-            <p><strong>✅ 参加条件</strong></p>
-            <ul>
-                <li>Minecraft（統合版）ができる</li>
-                <li>13歳以上であること</li>
-                <li>MicrosoftアカウントにサインインしてMinecraftができる</li>
-                <li>生声で通話に参加可能の方 (ネット公開ではない)</li>
-                <li>やる気がある</li>
-            </ul>
             <div style="text-align: center; margin-top: 25px;">
                 <p>⤵︎ 条件満たしてる方 ⤵︎</p>
                 <a href="https://discord.gg/vupWgSe5rg" target="_blank" class="btn btn-discord"><i class="fab fa-discord"></i> Discordに参加する</a>
             </div>
             <div class="note">
                 ※ボランティア感覚でお願いします。<br>
-                ※入る際は名前をゲーム名またはSNSアカウント名にしてください。
             </div>
         </section>
 
@@ -615,11 +435,8 @@
             <div class="sns-links">
                 <a href="https://youtube.com/@rarurei_ch" target="_blank" class="sns-item"><i class="fab fa-youtube"></i> YouTube</a>
                 <a href="https://x.com/rarurei_youtube" target="_blank" class="sns-item"><i class="fab fa-twitter"></i> X (Twitter)</a>
-                <a href="https://www.tiktok.com/@rarurei_yt" target="_blank" class="sns-item"><i class="fab fa-tiktok"></i> TikTok</a>
                 <a href="https://linevoom.line.me/user/_dWZiDZmXaPJG2qHnX46zacGP_bOcPBZT7i5tXqU" target="_blank" class="sns-item"><i class="fab fa-line"></i> LINE VOOM</a>
                 <a href="https://u.pokekara.com/user/3828724496" target="_blank" class="sns-item"><i class="fas fa-music"></i> Pokekara</a>
-                <a href="https://www.nicovideo.jp/user/142267657" target="_blank" class="sns-item"><i class="fas fa-tv"></i> ニコニコ</a>
-                <a href="https://www.instagram.com/rarurei_yt/" target="_blank" class="sns-item"><i class="fab fa-instagram"></i> Instagram</a>
             </div>
         </section>
     </div>
